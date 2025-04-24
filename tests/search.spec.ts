@@ -11,14 +11,14 @@ test(`can seach for ${searchTerm} and price should be less than ${maxPrice}`, as
   await searchfield.fill(searchTerm);
   await searchButton.click();
 
-  // Check if page title contains "Bike"
-  await expect(page).toHaveTitle(/Bike/);
+  // Check if page title contains "searchTerm"
+  expect(await page.title()).toContain(searchTerm);
 
   // Print out name and price of first search result
   const firstProductPrice = await page.locator('//div[@role="listitem"]//span[@class="a-price"]/span[@class="a-offscreen"]').first().textContent();
   const firstProductName = await page.locator('//div[@role="listitem"]//div[@data-cy="title-recipe"]/a//span').first().textContent();
-  console.log('Product Name: ' +  firstProductName);
-  console.log('Product Price: ' +  firstProductPrice);
+  console.log('First Product Name: ' +  firstProductName);
+  console.log('First Product Price: ' +  firstProductPrice);
 
   const productPriceNum = parseFloat(firstProductPrice!.replace(/[^0-9.-]+/g,""));
 
